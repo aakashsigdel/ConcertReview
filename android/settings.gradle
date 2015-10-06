@@ -1,0 +1,3 @@
+rootProject.name = 'ConcertReview'
+
+include ':app'
