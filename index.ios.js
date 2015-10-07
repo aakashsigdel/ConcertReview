@@ -6,6 +6,7 @@ var {
   StyleSheet,
   Text,
   View,
+	ActivityIndicatorIOS,
 	Component
 } = React;
 
@@ -38,6 +39,9 @@ class ConcertReview extends Component {
 		if(this.state.isLoading) {
 			return(
 				<View style={styles.container}>
+					<ActivityIndicatorIOS
+						hidden='true'
+						size='large' />
 					<Text style={styles.loadingText}>Loading...</Text>
 				</View>
 			);
@@ -55,14 +59,21 @@ class ConcertReview extends Component {
 
 var styles = StyleSheet.create({
 	container: {
-		flex: 4,
+		flex: 1,
 		backgroundColor: 'black',
-		marginTop: 40
+		marginTop: 40,
+		alignItems: 'center',
+		justifyContent: 'center'
 	},
 	loadingText: {
-		flex: 2,
 		color: 'white',
-		fontSize: 20
+		fontSize: 20,
+	},
+	loadingContainer: {
+		flex: 1,
+		backgroundColor: 'black',
+		alignItems: 'center',
+		justifyContent: 'center'
 	}
 })
 
