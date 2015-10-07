@@ -7,6 +7,7 @@ var {
   Text,
   View,
 	ActivityIndicatorIOS,
+	Image,
 	Component
 } = React;
 
@@ -38,7 +39,7 @@ class ConcertReview extends Component {
 	render() {
 		if(this.state.isLoading) {
 			return(
-				<View style={styles.container}>
+				<View style={styles.loadingContainer}>
 					<ActivityIndicatorIOS
 						hidden='true'
 						size='large' />
@@ -49,8 +50,13 @@ class ConcertReview extends Component {
 		return(
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<Text style={styles.title}></Text>
-					<Text style={styles.location}></Text>
+					<Image 
+						source={{uri: this.state.concertDetails.data.artist.image.original}}
+						style={styles.headerImage} />
+					<View style={styles.innerHeader}>
+						<Text style={styles.title}>{this.state.concertDetails.data.artist.name}</Text>
+						<Text style={styles.location}></Text>
+					</View>
 				</View>
 			</View>
 		)
@@ -62,8 +68,6 @@ var styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: 'black',
 		marginTop: 40,
-		alignItems: 'center',
-		justifyContent: 'center'
 	},
 	loadingText: {
 		color: 'white',
@@ -71,9 +75,29 @@ var styles = StyleSheet.create({
 	},
 	loadingContainer: {
 		flex: 1,
+		marginTop: 40,
 		backgroundColor: 'black',
 		alignItems: 'center',
 		justifyContent: 'center'
+	},
+	headerImage: {
+		flex: 1,
+		height: 230
+	},
+	title: {
+		position: 'absolute',
+		top: 2,
+		left: 4,
+		fontSize: 15,
+		color: 'white',
+	},
+	innerHeader: {
+		position: 'absolute',
+		top: 180,
+		left: 0,
+		backgroundColor: 'rgba(0, 0, 0, 0.5)',
+		width: 250,
+		height: 50
 	}
 })
 
