@@ -8,16 +8,23 @@ var {
   View,
 	ActivityIndicatorIOS,
 	Image,
+	TouchableHighlight,
 	Component
 } = React;
 
 var QUERY_URL = 'http://api.revuzeapp.com:80/api/v1/concerts/12?access_token=abcde';
+var viewConstants = {
+	photos: 'photos',
+	reviews: 'reviews'
+};
+
 class ConcertReview extends Component {
 	constructor() {
 		super();
 		this.state = {
 			concertDetails: null,
-			isLoading: true
+			isLoading: true,
+			views: viewConstants.photos
 		};
 	}
 
@@ -34,6 +41,26 @@ class ConcertReview extends Component {
 					isLoading: false
 				});
 			}).done();
+	}
+
+	onClickPhotos() {
+		console.log('going to set photos');
+		if(this.state.view !== viewConstants.photos) {
+			console.log('setting photos');
+			this.setState({
+				view: viewConstants.photos
+			});
+		}
+	}
+
+	onClickReviews() {
+		console.log('going to set Review');
+		if(this.state.view !== viewConstants.reviews) {
+			console.log('setting review');
+			this.setState({
+				view: viewConstants.reviews
+			});
+		}
 	}
 
 	render() {
@@ -57,6 +84,22 @@ class ConcertReview extends Component {
 						<Text style={styles.title}>{this.state.concertDetails.data.artist.name}</Text>
 						<Text style={styles.location}></Text>
 					</View>
+				</View>
+				<View style={styles.navBar}>
+					<TouchableHighlight style={styles.navButton}
+						underlayColor='lightgrey'
+						onPress={this.onClickPhotos.bind(this)}>
+						<Text style={styles.navButtonText}>Photos</Text>
+					</TouchableHighlight>
+					<TouchableHighlight style={styles.navButton}
+						underlayColor='lightgrey'
+						onPress={this.onClickReviews.bind(this)}>
+						<Text style={styles.navButtonText}>Reviews</Text>
+					</TouchableHighlight>
+					<TouchableHighlight style={[styles.navButton, styles.navButtonRight]}
+						underlayColor='lightgrey'>
+						<Text style={styles.navButtonText}>More</Text>
+					</TouchableHighlight>
 				</View>
 			</View>
 		)
@@ -82,7 +125,15 @@ var styles = StyleSheet.create({
 	},
 	headerImage: {
 		flex: 1,
-		height: 230
+		height: 200
+	},
+	innerHeader: {
+		position: 'absolute',
+		top: 150,
+		left: 0,
+		backgroundColor: 'rgba(0, 0, 0, 0.5)',
+		width: 250,
+		height: 50
 	},
 	title: {
 		position: 'absolute',
@@ -91,13 +142,27 @@ var styles = StyleSheet.create({
 		fontSize: 15,
 		color: 'white',
 	},
-	innerHeader: {
-		position: 'absolute',
-		top: 180,
-		left: 0,
-		backgroundColor: 'rgba(0, 0, 0, 0.5)',
-		width: 250,
-		height: 50
+	navBar: {
+		flex: 1,
+		marginTop: 5,
+		flexDirection: 'row',
+		justifyContent: 'center'
+	},
+	navButton: {
+		flex: 1,
+		width: 60,
+		height: 40,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderColor: 'red',
+		borderStyle: 'solid',
+		borderRightWidth: 1
+	},
+	navButtonRight: {
+		borderRightWidth: 0
+	},
+	navButtonText: {
+		color: 'white'
 	}
 })
 
