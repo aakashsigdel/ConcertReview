@@ -120,7 +120,8 @@ class ConcertReview extends Component {
 				{
 					this.state.view === viewConstants.photos ? 
 						<Photos concertId={this.concertId} /> :
-						<Reviews concertId={this.concertId} />
+						<Reviews concertId={this.concertId} 
+							concertLocation={this.state.concertDetails.data.location} />
 				}
 				</View>
 			</View>

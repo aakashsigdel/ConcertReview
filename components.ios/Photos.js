@@ -33,8 +33,6 @@ class Photos extends Component {
 
 	_fetchPhotos() {
 		var query = QUERY_URL.replace('concert_id', this.props.concertId);
-		console.log('woh aakash');
-		console.log(query);
 		fetch(query)
 			.then((response) => response.json())
 			.then((responseData) => {
