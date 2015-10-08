@@ -3,6 +3,8 @@
 var React = require('react-native');
 var Photos = require('./components.ios/Photos');
 var Reviews = require('./components.ios/Reviews');
+var Utils = require('./utils');
+
 var {
   AppRegistry,
   StyleSheet,
@@ -82,22 +84,25 @@ class ConcertReview extends Component {
 					<View style={styles.innerHeader}>
 						<Text style={styles.title}>{this.state.concertDetails.data.artist.name}</Text>
 						<Text style={styles.location}>{this.state.concertDetails.data.location}</Text>
-						{(() => {
-							switch(Number(this.state.concertDetails.rating)) {
-								case 0:
-									return <Image source={require('image!zeroStars')} style={styles.stars} />
-								case 1:
-									return <Image source={require('image!oneStars')} style={styles.stars} />
-								case 2:
-									return <Image source={require('image!twoStars')} style={styles.stars} />
-								case 3:
-									return <Image source={require('image!threeStars')} style={styles.stars} />
-								case 4:
-									return <Image source={require('image!fourStars')} style={styles.stars} />
-								case 5:
-									return <Image source={require('image!fiveStars')} style={styles.stars} />
-							}
-						})()}
+						<View style={styles.starsContainer}>
+							{(() => {
+								console.log('i am here');
+								switch(Number(this.state.concertDetails.data.rating)) {
+									case 0:
+										return <Image style={styles.stars} source={{uri: Utils.zeroStars}} />
+									case 1:
+										return <Image style={styles.stars} source={{uri: Utils.oneStars}} />
+									case 2:
+										return <Image style={styles.stars} source={{uri: Utils.twoStars}} />
+									case 3:
+										return <Image style={styles.stars} source={{uri: Utils.threeStars}} />
+									case 4:
+										return <Image style={styles.stars} source={{uri: Utils.fourStars}} />
+									case 5:
+										return <Image style={styles.stars} source={{uri: Utils.fiveStars}} />
+								}
+							})()}
+						</View>
 					</View>
 				</View>
 				<View style={styles.navBar}>
@@ -161,7 +166,7 @@ var styles = StyleSheet.create({
 	title: {
 		position: 'absolute',
 		top: 2,
-		left: 4,
+		left: 12,
 		fontSize: 15,
 		fontWeight: 'bold',
 		color: 'white',
@@ -169,7 +174,7 @@ var styles = StyleSheet.create({
 	location: {
 		fontSize: 12,
 		top: 20,
-		left: 4,
+		left: 12,
 		color: 'white'
 	},
 	navBar: {
@@ -194,9 +199,15 @@ var styles = StyleSheet.create({
 	navButtonText: {
 		color: 'white'
 	},
+	starsContainer: {
+		top: 25,
+		left: 4,
+		width: 110,
+		height: 15
+	},
 	stars: {
-		width: 90,
-		height: 60
+		resizeMode: Image.resizeMode.contain,
+		flex: 1
 	},
 	bottomContainer: {
 		marginTop: 40,

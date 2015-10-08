@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var Utils = require('../utils');
 
 var {
 	StyleSheet,
@@ -49,22 +50,24 @@ class Reviews extends Component {
 				<Image source={{uri: review.user.profile_picture}}
 					style={styles.profilePicture} />
 				<View style={styles.reviewDescription}>
-				{(() => {
-					switch(Number(review.rating)) {
-						case 0:
-							return <Image source={require('image!zeroStars')} />
-						case 1:
-							return <Image source={require('image!oneStars')} />
-						case 2:
-							return <Image source={require('image!twoStars')} />
-						case 3:
-							return <Image source={require('image!threeStars')} />
-						case 4:
-							return <Image source={require('image!fourStars')} />
-						case 5:
-							return <Image source={require('image!fiveStars')} />
-					}
-					})()}
+					<View style={styles.ratingsContainer}>
+						{(() => {
+							switch(Number(review.rating)) {
+								case 0:
+									return <Image style={styles.ratings} source={{uri: Utils.zeroStars}} />
+								case 1:
+									return <Image style={styles.ratings} source={{uri: Utils.oneStars}} />
+								case 2:
+									return <Image style={styles.ratings} source={{uri: Utils.twoStars}} />
+								case 3:
+									return <Image style={styles.ratings} source={{uri: Utils.threeStars}} />
+								case 4:
+									return <Image style={styles.ratings} source={{uri: Utils.fourStars}} />
+								case 5:
+									return <Image style={styles.ratings} source={{uri: Utils.fiveStars}} />
+							}
+						})()}
+					</View>
 					<Text style={styles.userName}>{review.user.full_name.toUpperCase()}</Text>
 					<View style={styles.locationAndDateContainer}>
 						<Text style={styles.location}>{this.props.concertLocation}</Text>
@@ -109,6 +112,7 @@ var styles = StyleSheet.create({
 		flexDirection: 'row',
 		paddingTop: 4,
 		paddingLeft: 5,
+		marginBottom: 4
 	},
 	reviewDescription: {
 		paddingLeft: 15,
@@ -116,6 +120,14 @@ var styles = StyleSheet.create({
 	profilePicture: {
 		width: 80,
 		height: 80
+	},
+	ratingsContainer: {
+		width: 120,
+		height: 20
+	},
+	ratings: {
+		resizeMode: Image.resizeMode.contain,
+		flex: 1,
 	},
 	userName: {
 		color: 'white',
