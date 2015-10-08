@@ -70,14 +70,21 @@ class Photos extends Component {
 			<ListView
 				contentContainerStyle={styles.listView}
 				dataSource={this.state.dataSource}
-				renderRow={this.renderPhotosThumbs} />
+				renderRow={this.renderPhotosThumbs} 
+				style={styles.photosContainer} />
 		);
 	}
 }
 
 var styles = StyleSheet.create({
+	photosContainer: {
+		marginLeft: 7
+	},
+	photoThumbnailContainer: {
+		padding: 6
+	},
 	photoThumbnail: {
-		width: 80,
+		width: 90,
 		height: 80
 	},
 	listView: {
@@ -91,6 +98,7 @@ var styles = StyleSheet.create({
 	loadingText: {
 		color: 'white',
 		fontSize: 20,
+		marginBottom: 140
 	},
 });
 

@@ -68,7 +68,7 @@ class Reviews extends Component {
 					<Text style={styles.userName}>{review.user.full_name.toUpperCase()}</Text>
 					<View style={styles.locationAndDateContainer}>
 						<Text style={styles.location}>{this.props.concertLocation}</Text>
-						<Text style={styles.date}>{'● ' + review.date + ' ago'}</Text>
+						<Text style={styles.date}>{' ●  ' + review.date.split(',')[0] + ' ago'}</Text>
 					</View>
 					<Text style={styles.comment}>{review.comment}</Text>
 				</View>
@@ -79,7 +79,7 @@ class Reviews extends Component {
 	render() {
 		if(this.state.isLoading) {
 			return(
-				<View style={styles.isLoadingContainer}>
+				<View style={styles.loadingContainer}>
 					<ActivityIndicatorIOS
 						hidden='true'
 						size='large' />
@@ -97,6 +97,14 @@ class Reviews extends Component {
 }
 
 var styles = StyleSheet.create({
+	loadingContainer: {
+		alignItems: 'center',
+	},
+	loadingText: {
+		color: 'white',
+		fontSize: 20,
+		marginBottom: 140
+	},
 	reviewRow: {
 		flexDirection: 'row',
 		paddingTop: 4,
