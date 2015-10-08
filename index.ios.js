@@ -16,7 +16,7 @@ var {
 	Component
 } = React;
 
-var QUERY_URL = 'http://api.revuzeapp.com:80/api/v1/concerts/12?access_token=abcde';
+var QUERY_URL = 'http://api.revuzeapp.com:80/api/v1/concerts/concert_id?access_token=abcde';
 var viewConstants = {
 	photos: 'photos',
 	reviews: 'reviews'
@@ -38,7 +38,8 @@ class ConcertReview extends Component {
 	}
 
 	_fetchConcertDetails(id) {
-		fetch(QUERY_URL)
+		var query = QUERY_URL.replace('concert_id', this.concertId);
+		fetch(query)
 			.then((response) => response.json())	
 			.then((concertDetails) => {
 				this.setState({
