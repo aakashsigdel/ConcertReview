@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react-native');
+var Photos = require('./components.ios/Photos');
+var Reviews = require('./components.ios/Reviews');
 var {
   AppRegistry,
   StyleSheet,
@@ -21,10 +23,11 @@ var viewConstants = {
 class ConcertReview extends Component {
 	constructor() {
 		super();
+		this.concertId = 12;
 		this.state = {
 			concertDetails: null,
 			isLoading: true,
-			views: viewConstants.photos
+			view: viewConstants.photos
 		};
 	}
 
@@ -44,9 +47,7 @@ class ConcertReview extends Component {
 	}
 
 	onClickPhotos() {
-		console.log('going to set photos');
 		if(this.state.view !== viewConstants.photos) {
-			console.log('setting photos');
 			this.setState({
 				view: viewConstants.photos
 			});
@@ -54,9 +55,7 @@ class ConcertReview extends Component {
 	}
 
 	onClickReviews() {
-		console.log('going to set Review');
 		if(this.state.view !== viewConstants.reviews) {
-			console.log('setting review');
 			this.setState({
 				view: viewConstants.reviews
 			});
@@ -82,24 +81,47 @@ class ConcertReview extends Component {
 						style={styles.headerImage} />
 					<View style={styles.innerHeader}>
 						<Text style={styles.title}>{this.state.concertDetails.data.artist.name}</Text>
-						<Text style={styles.location}></Text>
+						<Text style={styles.location}>{this.state.concertDetails.data.location}</Text>
+						{(() => {
+							switch(Number(this.state.concertDetails.rating)) {
+								case 0:
+									return <Image source={require('image!zeroStars')} style={styles.stars} />
+								case 1:
+									return <Image source={require('image!oneStars')} style={styles.stars} />
+								case 2:
+									return <Image source={require('image!twoStars')} style={styles.stars} />
+								case 3:
+									return <Image source={require('image!threeStars')} style={styles.stars} />
+								case 4:
+									return <Image source={require('image!fourStars')} style={styles.stars} />
+								case 5:
+									return <Image source={require('image!fiveStars')} style={styles.stars} />
+							}
+						})()}
 					</View>
 				</View>
 				<View style={styles.navBar}>
 					<TouchableHighlight style={styles.navButton}
-						underlayColor='lightgrey'
+						underlayColor="lightgrey"
 						onPress={this.onClickPhotos.bind(this)}>
 						<Text style={styles.navButtonText}>Photos</Text>
 					</TouchableHighlight>
 					<TouchableHighlight style={styles.navButton}
-						underlayColor='lightgrey'
+						underlayColor="lightgrey"
 						onPress={this.onClickReviews.bind(this)}>
 						<Text style={styles.navButtonText}>Reviews</Text>
 					</TouchableHighlight>
 					<TouchableHighlight style={[styles.navButton, styles.navButtonRight]}
-						underlayColor='lightgrey'>
+						underlayColor="lightgrey">
 						<Text style={styles.navButtonText}>More</Text>
 					</TouchableHighlight>
+				</View>
+				<View style={styles.bottomContainer}>
+				{
+					this.state.view === viewConstants.photos ? 
+						<Photos concertId={this.concertId} /> :
+						<Reviews concertId={this.concertId} />
+				}
 				</View>
 			</View>
 		)
@@ -112,10 +134,6 @@ var styles = StyleSheet.create({
 		backgroundColor: 'black',
 		marginTop: 40,
 	},
-	loadingText: {
-		color: 'white',
-		fontSize: 20,
-	},
 	loadingContainer: {
 		flex: 1,
 		marginTop: 40,
@@ -123,24 +141,35 @@ var styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
+	loadingText: {
+		color: 'white',
+		fontSize: 20,
+	},
 	headerImage: {
 		flex: 1,
-		height: 200
+		height: 200,
 	},
 	innerHeader: {
 		position: 'absolute',
-		top: 150,
+		top: 140,
 		left: 0,
 		backgroundColor: 'rgba(0, 0, 0, 0.5)',
-		width: 250,
-		height: 50
+		width: 280,
+		height: 80
 	},
 	title: {
 		position: 'absolute',
 		top: 2,
 		left: 4,
 		fontSize: 15,
+		fontWeight: 'bold',
 		color: 'white',
+	},
+	location: {
+		fontSize: 12,
+		top: 20,
+		left: 4,
+		color: 'white'
 	},
 	navBar: {
 		flex: 1,
@@ -163,7 +192,14 @@ var styles = StyleSheet.create({
 	},
 	navButtonText: {
 		color: 'white'
+	},
+	stars: {
+		width: 90,
+		height: 60
+	},
+	bottomContainer: {
+		marginTop: 40,
 	}
-})
+});
 
 AppRegistry.registerComponent('ConcertReview', () => ConcertReview);
