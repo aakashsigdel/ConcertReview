@@ -101,7 +101,8 @@ class Reviews extends Component {
 
 var styles = StyleSheet.create({
 	loadingContainer: {
-		alignItems: 'center',
+		marginTop: 80,
+		alignItems: 'center'
 	},
 	loadingText: {
 		color: 'white',

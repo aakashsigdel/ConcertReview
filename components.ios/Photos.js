@@ -92,13 +92,12 @@ var styles = StyleSheet.create({
 		flexWrap: 'wrap'
 	},
 	loadingContainer: {
+		marginTop: 80,
 		alignItems: 'center',
-		justifyContent: 'center'
 	},
 	loadingText: {
 		color: 'white',
 		fontSize: 20,
-		marginBottom: 140
 	},
 });
 
