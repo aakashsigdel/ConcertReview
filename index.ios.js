@@ -122,14 +122,12 @@ class ConcertReview extends Component {
 						<Text style={styles.navButtonText}>More</Text>
 					</TouchableHighlight>
 				</View>
-				<View style={styles.bottomContainer}>
 				{
 					this.state.view === viewConstants.photos ? 
 						<Photos concertId={this.concertId} /> :
 						<Reviews concertId={this.concertId} 
 							concertLocation={this.state.concertDetails.data.location} />
 				}
-				</View>
 			</View>
 		)
 	}
@@ -179,10 +177,9 @@ var styles = StyleSheet.create({
 		color: 'white'
 	},
 	navBar: {
-		flex: 1,
 		marginTop: 5,
+		height: 40,
 		flexDirection: 'row',
-		justifyContent: 'center'
 	},
 	navButton: {
 		flex: 1,
